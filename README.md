@@ -1,6 +1,6 @@
 # FFmpegBox
 
-FFmpeg commande line tool box for android
+FFmpeg command line tool box for android
 
 ## Command API
 
@@ -17,9 +17,9 @@ Command command = new CatGifCommand.Builder()
 new FFmpegBox().execute(command);
 ```
 
-## Support Command
+## Supported Commands
 
-* Cat Gif
+* CatGifCommand
 * ...
 * coming soon
 
