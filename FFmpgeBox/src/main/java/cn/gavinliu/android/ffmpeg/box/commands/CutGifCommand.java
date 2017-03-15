@@ -7,19 +7,12 @@ import static cn.gavinliu.android.ffmpeg.box.utils.TextUtils.cmdFormat;
  * Created by gavin on 2017/3/15.
  */
 
-public class CatGifCommand implements Command {
+public class CutGifCommand extends BaseCommand {
 
     private static final String CMD = "ffmpeg -ss %d -t %d -i %s -s %d*%d -f gif %s";
 
-    private String command;
-
-    private CatGifCommand(String command) {
-        this.command = command;
-    }
-
-    @Override
-    public String getCommand() {
-        return command;
+    private CutGifCommand(String command) {
+        super(command);
     }
 
     public static class Builder {
@@ -68,7 +61,7 @@ public class CatGifCommand implements Command {
 
         public Command build() {
             String cmd = cmdFormat(CMD, startTime, duration, videoFile, width, height, gifFile);
-            return new CatGifCommand(cmd);
+            return new CutGifCommand(cmd);
         }
 
     }

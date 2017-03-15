@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import cn.gavinliu.android.ffmpeg.box.FFmpegBox;
 import cn.gavinliu.android.ffmpeg.box.app.utils.PermissionsUtils;
-import cn.gavinliu.android.ffmpeg.box.commands.CatGifCommand;
+import cn.gavinliu.android.ffmpeg.box.commands.CutGifCommand;
 import cn.gavinliu.android.ffmpeg.box.commands.Command;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 long time = System.currentTimeMillis();
 
-                Command command = new CatGifCommand.Builder()
+                Command command = new CutGifCommand.Builder()
                         .setVideoFile("/sdcard/明明就.mp4")
                         .setGifFile("/sdcard/明明就.gif")
                         .setStartTime(90)
