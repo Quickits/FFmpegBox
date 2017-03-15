@@ -613,6 +613,6 @@ int vaapi_device_init(const char *device);
 int cuvid_init(AVCodecContext *s);
 int cuvid_transcode_init(OutputStream *ost);
 
-int run(int argc, char **argv);
+int execute(int argc, char **argv);
 
 #endif /* FFMPEG_H */

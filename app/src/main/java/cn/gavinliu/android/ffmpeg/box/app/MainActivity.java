@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.gavinliu.android.ffmpeg.box.FFmpegBox;
+import cn.gavinliu.android.ffmpeg.box.app.utils.PermissionsUtils;
+import cn.gavinliu.android.ffmpeg.box.commands.CatGifCommand;
+import cn.gavinliu.android.ffmpeg.box.commands.Command;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,36 +28,44 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
 
         tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(ffmpegBox.stringFromJNI());
+        tv.setText(ffmpegBox.urlProtocolInfo());
+
+        PermissionsUtils.getReadStoragePermissions(this);
+        PermissionsUtils.getWriteStoragePermissions(this);
     }
 
     public void protocol(View view) {
-        tv.setText(ffmpegBox.urlprotocolinfo());
+        tv.setText(ffmpegBox.urlProtocolInfo());
     }
 
     public void filter(View view) {
-        tv.setText(ffmpegBox.avformatinfo());
+        tv.setText(ffmpegBox.avFilterInfo());
     }
 
     public void format(View view) {
-        tv.setText(ffmpegBox.avfilterinfo());
+        tv.setText(ffmpegBox.avFormatInfo());
     }
 
     public void codec(View view) {
-        tv.setText(ffmpegBox.avcodecinfo());
+        tv.setText(ffmpegBox.avCodecInfo());
     }
 
     public void cmd(View view) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 long time = System.currentTimeMillis();
 
-                String cmd = "ffmpeg -ss 40 -t 10 -i /sdcard/不该.mp4 -s 480*270 -f gif /sdcard/不该.gif";
-                String[] commands = cmd.split(" ");
+                Command command = new CatGifCommand.Builder()
+                        .setVideoFile("/sdcard/明明就.mp4")
+                        .setGifFile("/sdcard/明明就.gif")
+                        .setStartTime(90)
+                        .setDuration(20)
+                        .setWidth(480)
+                        .setHeight(270)
+                        .build();
 
-                ffmpegBox.run(commands);
+                ffmpegBox.execute(command);
 
                 final String msg = "耗时：" + (System.currentTimeMillis() - time);
 

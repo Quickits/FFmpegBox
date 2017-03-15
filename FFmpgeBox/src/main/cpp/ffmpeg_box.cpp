@@ -17,16 +17,9 @@ extern "C" {
 #define LOGF(...)  __android_log_print(ANDROID_LOG_FATAL,LOG_TAG,__VA_ARGS__)
 #define LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE,LOG_TAG,__VA_ARGS__)
 
-JNIEXPORT jstring JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
 
 JNIEXPORT jstring JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avformatinfo(
+Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avFormatInfo(
         JNIEnv *env,
         jobject /* this */) {
     char info[40000] = {0};
@@ -45,7 +38,7 @@ Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avformatinfo(
 }
 
 JNIEXPORT jstring JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_urlprotocolinfo(
+Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_urlProtocolInfo(
         JNIEnv *env,
         jobject /* this */) {
     char info[40000] = {0};
@@ -65,7 +58,7 @@ Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_urlprotocolinfo(
 }
 
 JNIEXPORT jstring JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avcodecinfo(
+Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avCodecInfo(
         JNIEnv *env,
         jobject /* this */) {
     char info[40000] = {0};
@@ -95,7 +88,7 @@ Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avcodecinfo(
 }
 
 JNIEXPORT jstring JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avfilterinfo(JNIEnv *env, jobject /* this */) {
+Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_avFilterInfo(JNIEnv *env, jobject /* this */) {
     char info[40000] = {0};
     avfilter_register_all();
     AVFilter *f_temp = (AVFilter *) avfilter_next(NULL);
@@ -145,7 +138,7 @@ void my_logcat(void *ptr, int level, const char *fmt, va_list vl) {
 }
 
 JNIEXPORT jint JNICALL
-Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_run(
+Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_execute(
         JNIEnv *env,
         jobject /* this */, jobjectArray commands) {
 
@@ -158,7 +151,7 @@ Java_cn_gavinliu_android_ffmpeg_box_FFmpegBox_run(
         jstring js = (jstring) env->GetObjectArrayElement(commands, i);
         argv[i] = (char *) env->GetStringUTFChars(js, 0);
     }
-    return run(argc, argv);
+    return execute(argc, argv);
 }
 
 }
