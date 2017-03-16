@@ -12,7 +12,6 @@ import cn.gavinliu.android.ffmpeg.box.commands.Command;
 
 public class FFmpegBox {
 
-    private static final String CMD_CAT_GIF = "ffmpeg -ss %d -t %d -i %s -s %d*%d -f gif %s";
 
     public void execute(Command command) {
         if (command == null || TextUtils.isEmpty(command.getCommand())) return;

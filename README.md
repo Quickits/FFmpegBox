@@ -52,6 +52,10 @@ public interface Command {
 ### 支持的命令
 
 * CutGifCommand
+* CutVideoCommand
+* ScreenshotCommand
+* FormatConvertCommand
+* SeparatorCommand
 * ...
 * coming soon
 

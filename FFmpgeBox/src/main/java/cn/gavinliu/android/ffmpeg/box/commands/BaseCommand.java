@@ -16,4 +16,10 @@ public abstract class BaseCommand implements Command {
     public String getCommand() {
         return command;
     }
+
+    public interface IBuilder {
+
+        Command build();
+
+    }
 }
