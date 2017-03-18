@@ -22,6 +22,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.2.0'
     compile project(':FFmpegBox')
+
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:preference-v7:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
+    compile 'com.android.support:percent:25.2.0'
+
+
+    compile 'cn.gavinliu.android.lib:ShapedImageView:0.8.4'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

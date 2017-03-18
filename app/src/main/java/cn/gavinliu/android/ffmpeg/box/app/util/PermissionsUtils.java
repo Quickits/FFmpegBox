@@ -1,4 +1,4 @@
-package cn.gavinliu.android.ffmpeg.box.app.utils;
+package cn.gavinliu.android.ffmpeg.box.app.util;
 
 import android.Manifest;
 import android.annotation.TargetApi;

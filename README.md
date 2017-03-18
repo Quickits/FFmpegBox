@@ -12,11 +12,11 @@
 
 ### 引用
 
-```
-dependencies {
-    compile 'cn.gavinliu.android.lib:FFmpegBox:0.1.1'
-}
-```
+由于 FFmpeg 库比较大，放在中心仓库里不太合适，所以还是下载源码引用吧。
+
+1. 拷贝 FFmpegBox 到你的项目根目录，
+2. 在 ``setting.gradle`` 添加 ``':FFmpegBox'``，
+3. 在 ``build.gradle`` 添加 ``compile project(':FFmpegBox')``
 
 ### Command.Builder API
 
