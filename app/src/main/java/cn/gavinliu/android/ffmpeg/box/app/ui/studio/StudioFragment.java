@@ -23,6 +23,8 @@ import cn.gavinliu.android.ffmpeg.box.commands.CutGifCommand;
 
 public class StudioFragment extends BaseFragment {
 
+    private static final String TAG = StudioFragment.class.getSimpleName();
+
     public static StudioFragment newInstance(String path) {
         Bundle args = new Bundle();
         args.putString("PATH", path);
@@ -83,21 +85,23 @@ public class StudioFragment extends BaseFragment {
             public void run() {
                 final long time = System.currentTimeMillis();
 
+                String path = mPath;
+
                 Command command = new CutGifCommand.Builder()
-                        .setVideoFile(mPath)
-                        .setGifFile(mPath + "_" + System.currentTimeMillis() + ".gif")
-                        .setStartTime(mVideoView.getCurrentPosition())
+                        .setVideoFile(path)
+                        .setGifFile(path + "_" + System.currentTimeMillis() + ".gif")
+                        .setStartTime(mVideoView.getCurrentPosition() / 1000)
                         .setDuration(5)
                         .setWidth(480)
                         .setHeight(270)
                         .build();
 
-                new FFmpegBox().execute(command);
+                FFmpegBox.getInstance().execute(command);
 
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(), "耗时：" + (time - System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "耗时：" + (System.currentTimeMillis() - time), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

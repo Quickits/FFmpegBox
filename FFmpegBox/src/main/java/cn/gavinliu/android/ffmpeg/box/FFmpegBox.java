@@ -12,11 +12,20 @@ import cn.gavinliu.android.ffmpeg.box.commands.Command;
 
 public class FFmpegBox {
 
+    private static FFmpegBox sInstance;
+
+    public static FFmpegBox getInstance() {
+        if (sInstance == null) sInstance = new FFmpegBox();
+        return sInstance;
+    }
+
+    private FFmpegBox() {
+    }
 
     public void execute(Command command) {
         if (command == null || TextUtils.isEmpty(command.getCommand())) return;
 
-        String[] commands = command.getCommand().split(" ");
+        String[] commands = command.getCommand().split("\\s");
         execute(commands);
     }
 
