@@ -47,7 +47,7 @@ public interface Command {
 
 实现 ``Command`` 接口，``getCommand()`` 方法返回 ``ffmpeg -i inputFile ...`` 类似的命令行字符串即可。
 
-为了编码规范，你应该使用 ``Builder`` 模式，采用链式API的方式创建一个 ``Command``，可参考：[CutGifCommand](https://github.com/gavinliu/FFmpegBox/blob/master/FFmpgeBox/src/main/java/cn/gavinliu/android/ffmpeg/box/commands/CutGifCommand.java)。
+为了编码规范，你应该使用 ``Builder`` 模式，采用链式API的方式创建一个 ``Command``，可参考：[CutGifCommand](https://github.com/gavinliu/FFmpegBox/blob/master/FFmpegBox/src/main/java/cn/gavinliu/android/ffmpeg/box/commands/CutGifCommand.java)。
 
 ### 支持的命令
 
