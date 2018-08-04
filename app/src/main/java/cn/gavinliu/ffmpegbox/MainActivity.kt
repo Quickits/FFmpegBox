@@ -2,6 +2,7 @@ package cn.gavinliu.ffmpegbox
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import cn.quickits.ffmpeg.box.FFmpegBox
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         execute.setOnClickListener {
-            FFmpegBox.get().execute()
+            FFmpegBox.get().version().subscribe { version ->
+                Log.d("MainActivity", version)
+            }
         }
     }
 }

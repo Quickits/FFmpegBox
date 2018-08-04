@@ -6,6 +6,8 @@ import android.content.Context
 @SuppressLint("StaticFieldLeak")
 class FFmpegBoxSpec(var context: Context) {
 
+    var commanderBox: CommanderBox = CommanderBox()
+
     companion object {
 
         @Volatile

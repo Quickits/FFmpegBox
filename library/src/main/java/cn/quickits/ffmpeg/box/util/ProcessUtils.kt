@@ -1,33 +1,9 @@
 package cn.quickits.ffmpeg.box.util
 
-import android.util.Log
 import java.io.*
 
 
 object ProcessUtils {
-
-    fun checkAndUpdate(process: Process?) {
-        process ?: return
-
-        while (!isCompleted(process)) {
-
-            if (isCompleted(process)) {
-                return
-            }
-
-            try {
-                val reader = BufferedReader(InputStreamReader(process.errorStream) as Reader?)
-                var line = reader.readLine()
-                while (line != null) {
-                    Log.e("FFmpegBox", line)
-                    line = reader.readLine()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-        }
-    }
 
     fun outputText(process: Process?): String? {
         process ?: return null
@@ -57,12 +33,13 @@ object ProcessUtils {
         return null
     }
 
-    private fun isCompleted(process: Process?): Boolean {
+    fun isCompleted(process: Process?): Boolean {
         process ?: return false
         try {
             process.exitValue()
             return true
-        } catch (e: Exception) { }
+        } catch (e: Exception) {
+        }
         return false
     }
 

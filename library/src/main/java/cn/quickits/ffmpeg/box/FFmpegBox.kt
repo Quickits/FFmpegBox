@@ -1,13 +1,12 @@
 package cn.quickits.ffmpeg.box
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import cn.quickits.ffmpeg.box.data.FFmpegBoxSpec
+import cn.quickits.ffmpeg.box.data.Status
+import cn.quickits.ffmpeg.box.data.Success
 import cn.quickits.ffmpeg.box.util.FileUtils
-import cn.quickits.ffmpeg.box.util.ProcessUtils
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
+
 
 class FFmpegBox {
 
@@ -15,36 +14,11 @@ class FFmpegBox {
         FFmpegBinaryLoader().execute()
     }
 
-    @SuppressLint("CheckResult")
-    fun execute() {
-//        val str = arrayOf(
-//                FileUtils.getFFmpegFilePath(),
-//                "-i",
-//                "/sdcard/screenshots.mp4",
-//                "-vcodec",
-//                "libx264",
-//                "/sdcard/screenshots-out.mp4"
-//        )
+    fun exec(cmd: Array<String>): Flowable<Status> = FFmpegBoxSpec.instance().commanderBox.exec(cmd)
 
-        val str = arrayOf(
-                FileUtils.getFFmpegFilePath(),
-                "-version"
-        )
-
-        Flowable.just(str)
-                .map { Runtime.getRuntime().exec(it) }
-                .map {
-                    ProcessUtils.checkAndUpdate(it)
-                    val text = ProcessUtils.outputText(it)
-                    Log.d("FFmpegBox", text)
-                    true
-                }
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    Log.d("FFmpegBox", "$it")
-                }, {
-                    it.printStackTrace()
-                })
+    fun version(): Flowable<String> {
+        val cmd = arrayOf(FileUtils.getFFmpegFilePath(), "-version")
+        return exec(cmd).filter { it is Success }.map { it.msg }
     }
 
     companion object {
