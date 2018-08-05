@@ -7,17 +7,25 @@
                                                    tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/execute"
+        android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Version" />
 
+    <Button
+        android:id="@+id/converter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Converter"
+        app:layout_constraintStart_toEndOf="@+id/version" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/execute">
+        app:layout_constraintTop_toBottomOf="@+id/version">
 
         <TextView
             android:id="@+id/msg"
