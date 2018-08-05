@@ -10,15 +10,14 @@ import io.reactivex.Flowable
 
 class FFmpegBox {
 
-    fun loadBinary() {
-        FFmpegBinaryLoader().execute()
+    fun exec(cmd: Array<String>): Flowable<Status> {
+        var newCmd = arrayOf(FileUtils.getFFmpegFilePath())
+        newCmd = newCmd.plus(cmd)
+        return FFmpegBoxSpec.instance().commanderBox.exec(newCmd)
     }
 
-    fun exec(cmd: Array<String>): Flowable<Status> = FFmpegBoxSpec.instance().commanderBox.exec(cmd)
-
     fun version(): Flowable<String> {
-        val cmd = arrayOf(FileUtils.getFFmpegFilePath(), "-version")
-        return exec(cmd).filter { it is Success }.map { it.msg }
+        return exec(arrayOf("-version")).filter { it is Success }.map { it.msg }
     }
 
     companion object {

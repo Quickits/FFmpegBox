@@ -1,5 +1,6 @@
 package cn.quickits.ffmpeg.box.data
 
+import cn.quickits.ffmpeg.box.util.FileUtils
 import cn.quickits.ffmpeg.box.util.ProcessUtils
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
@@ -20,6 +21,12 @@ class Commander(val cmd: Array<String>) {
     fun exec() {
         if (disposable == null) {
             disposable = Flowable.just(cmd)
+                    .map {
+                        if (!loadBinary()) {
+                            throw RuntimeException()
+                        }
+                        it
+                    }
                     .map { Runtime.getRuntime().exec(it) }
                     .map { process ->
                         checkAndUpdate(process)
@@ -37,7 +44,7 @@ class Commander(val cmd: Array<String>) {
 
                     }
                     .doFinally {
-                        
+                        disposable = null
                     }
                     .subscribe({ emitStatus(it) }, {
                         emitStatus(Failed(it.message ?: ""))
@@ -69,6 +76,20 @@ class Commander(val cmd: Array<String>) {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun loadBinary(): Boolean {
+        val ffmpegFile = FileUtils.getFFmpegFile()
+
+        if (!ffmpegFile.exists()) {
+            if (FileUtils.copyBinaryFromAssetsToData()) {
+                if (ffmpegFile.canExecute() || ffmpegFile.setExecutable(true)) {
+                    return true
+                }
+            }
+        }
+
+        return ffmpegFile.exists() && ffmpegFile.canExecute()
     }
 
 }

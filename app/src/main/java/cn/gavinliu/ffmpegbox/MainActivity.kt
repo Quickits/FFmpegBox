@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import cn.quickits.ffmpeg.box.FFmpegBox
+import cn.quickits.ffmpeg.box.data.Success
+import cn.quickits.ffmpeg.box.util.FileUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,14 +15,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        load.setOnClickListener {
-            FFmpegBox.get().loadBinary()
-        }
-
         execute.setOnClickListener {
-            FFmpegBox.get().version().subscribe { version ->
-                Log.d("MainActivity", version)
-            }
+            FFmpegBox.get().version()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { version ->
+                        msg.text = version
+                    }
+
+//            FFmpegBox.get().exec(arrayOf(FileUtils.getFFmpegFilePath(),
+//                    "-i", "/sdcard/screenshots.mp4",
+//                    "-vcodec", "copy",
+//                    "/sdcard/screenshots.avi"
+//            )).subscribe { status ->
+//                Log.d("MainActivity", "${status.msg} ${status is Success}")
+//            }
+
         }
     }
 }
